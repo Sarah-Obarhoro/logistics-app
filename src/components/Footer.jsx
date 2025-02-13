@@ -84,7 +84,7 @@ const Footer = ({ setCurrentPage }) => {
                   )}
                 </div>
               </li>                 
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Get a Quote</a></li>
+              <li><button onClick={() => handlePageChange("Quote")} className="hover:text-blue-400 transition-colors">Get a Quote</button></li>
             </ul>
           </div>
           {/* <div className="space-y-4">
@@ -97,8 +97,8 @@ const Footer = ({ setCurrentPage }) => {
           <div className="space-y-4">
             <h3 className="text-[24px] text-[600] source-sans-3 mb-4">Legal Information</h3>
             <ul className="space-y-2 text-[16px] text-[500] source-sans-3">
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-blue-400 transition-colors">Terms of Service</a></li>
+            <li><button onClick={() => handlePageChange("Privacy")} className="hover:text-blue-400 transition-colors">Privacy Policy</button></li>
+            <li><button onClick={() => handlePageChange("Terms")} className="hover:text-blue-400 transition-colors">Terms of Service</button></li>
             </ul>
           </div>
 

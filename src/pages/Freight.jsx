@@ -8,7 +8,7 @@ import ContactForm from '../components/Contact';
 import Footer from '../components/Footer';
 
 
-const Freight = () => {
+const Freight = ({ setCurrentPage }) => {
   return (
     <div className="min-h-screen bg-white">
       <Hero />

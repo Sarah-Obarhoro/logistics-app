@@ -28,8 +28,8 @@ const ContactForm = () => {
           {/* Added flex container for form and map */}
           <div className="max-w-6xl mx-auto flex flex-col md:flex-row gap-0">
             {/* Form container */}
-            <div className="w-full md:w-1/2 h-[117vh] bg-[#E1E1E126] rounded-l-3xl shadow-lg shadow-[#7C7C7C26]">
-              <form onSubmit={handleSubmit} className="space-y-6 md:px-20 md:py-16">
+            <div className="w-full md:w-1/2 bg-[#E1E1E126] rounded-t-3xl md:rounded-l-3xl md:rounded-tr-none shadow-lg shadow-[#7C7C7C26] px-6 md:px-0">
+              <form onSubmit={handleSubmit} className="space-y-6 md:px-20 md:py-16 py-8">
                 <div>
                   <label className="block text-[#494949] mb-1 -sans-3 text-[16px]">
                     Full Name <span className="text-red-500">*</span>
@@ -118,11 +118,11 @@ const ContactForm = () => {
             </div>
 
             {/* Map container */}
-            <div className="w-full md:w-1/2 h-full">
+            <div className="w-full md:w-1/2 h-[60vh] md:h-[117vh]">
               <img 
                 src="/assets/map.png" 
                 alt="Location map"
-                className="w-full h-full object-cover rounded-md"
+                className="w-full h-full object-cover md:rounded-md"
               />
             </div>
           </div>
