@@ -21,8 +21,10 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
     window.addEventListener('scroll', handleScroll);
     document.addEventListener('mousedown', handleClickOutside); 
 
-    return () => window.removeEventListener('scroll', handleScroll);
-    document.removeEventListener('mousedown', handleClickOutside);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
   }, []);
 
   const handlePageChange = (page) => {
@@ -32,6 +34,13 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
 
   const isActive = (page) => currentPage === page;
   const isServicePage = (page) => ['Delivery', 'Freight', 'Logistics'].includes(page);
+
+  const handleServiceClick = (e, service) => {
+    e.stopPropagation(); // Prevent click from bubbling up
+    handlePageChange(service);
+    setShowServicesDropdown(false);
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative">
@@ -168,7 +177,7 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
                   </a>
                 </li>
                 <li>
-                  <div onClick={() => setShowServicesDropdown(!showServicesDropdown)} 
+                  <div onClick={(e) => setShowServicesDropdown(!showServicesDropdown)} 
                     className="flex items-center">
                     Services
                     <ChevronDown className={`ml-2 w-4 h-4 transform transition-transform ${showServicesDropdown ? 'rotate-180' : ''}`} />
@@ -177,10 +186,9 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
                     <ul className="pl-4 mt-4 space-y-4">
                       {['Delivery', 'Freight', 'Logistics'].map((service) => (
                         <li key={service}>
-                          <a onClick={() => {
-                            handlePageChange(service);
-                            setIsOpen(false);
-                          }} className="block text-white/80 hover:text-white">
+                          <a 
+                          onClick={(e) => handleServiceClick(e, service)}
+                          className="block text-white/80 hover:text-white">
                             {service}
                           </a>
                         </li>
