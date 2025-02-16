@@ -20,6 +20,7 @@ const ContactForm = () => {
         whileInView={{ opacity: 1 }}
         viewport={{ once: true }}
         className="bg-white py-16"
+        id="contact-form"
       >
         <div className="container mx-auto px-6">
           <h2 className="text-3xl font-bold text-center mb-12">Take the Next Step</h2>

@@ -4,9 +4,20 @@ import { Menu, X, ChevronDown } from 'lucide-react';
 const Navbar = ({ setCurrentPage, currentPage }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [showServicesDropdown, setShowServicesDropdown] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
   const [hasScrolled, setHasScrolled] = useState(false);
   const dropdownRef = useRef(null);
 
+  const handleMobileServiceClick = (service) => {
+    handlePageChange(service);
+    setMobileServicesOpen(false);
+    setIsOpen(false); 
+  };
+
+  const scrollToContact = () => {
+    document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+    setIsOpen(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -14,33 +25,49 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
     };
 
     const handleClickOutside = (event) => {
-        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
-          setShowServicesDropdown(false);
-        }
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setShowServicesDropdown(false);
+      }
+    };
+
+    const handleResize = () => {
+      if (window.innerWidth >= 768) { // md breakpoint
+        setIsOpen(false);
+        setShowServicesDropdown(false);
+      }
     };
 
     window.addEventListener('scroll', handleScroll);
-    document.addEventListener('mousedown', handleClickOutside); 
+    document.addEventListener('mousedown', handleClickOutside);
+    window.addEventListener('resize', handleResize);
 
     return () => {
-        window.removeEventListener('scroll', handleScroll);
-        document.removeEventListener('mousedown', handleClickOutside);
-    } 
+      window.removeEventListener('scroll', handleScroll);
+      document.removeEventListener('mousedown', handleClickOutside);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
+    setIsOpen(false);
+    setShowServicesDropdown(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleServiceClick = (service, e) => {
+    e.stopPropagation(); 
+    handlePageChange(service); 
+  };
+    
   const isActive = (page) => currentPage === page;
   const isServicePage = (page) => ['Delivery', 'Freight', 'Logistics'].includes(page);
 
-  const handleServiceClick = (e, service) => {
-    e.stopPropagation(); // Prevent click from bubbling up
-    handlePageChange(service);
-    setShowServicesDropdown(false);
-    setIsOpen(false);
+  const handleBackdropClick = (e) => {
+    if (e.target === e.currentTarget) {
+      setIsOpen(false);
+      setShowServicesDropdown(false);
+    }
   };
 
   return (
@@ -58,7 +85,7 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
               ${hasScrolled && !isOpen ? 'text-[#004EBE]' : 'md:text-[#004EBE] text-gray-500'}`}>
               k&a
             </span>
-            <span className={`transition-colors duration-300 source-sans-3 
+            <span className={`transition-colors duration-300 source-sans-3
               ${hasScrolled && !isOpen ? 'text-gray-800' : 'md:text-gray-800 text-gray-500'}`}>
               Dispatch
             </span>
@@ -101,10 +128,7 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
                   {['Delivery', 'Freight', 'Logistics'].map((service) => (
                     <a
                       key={service}
-                      onClick={() => {
-                        handlePageChange(service);
-                        setShowServicesDropdown(false);
-                      }}
+                      onClick={() => handlePageChange(service)}
                       className={`block px-4 py-2 cursor-pointer transition-colors duration-200 ${
                         isActive(service) 
                           ? "bg-gray-100 text-gray-900" 
@@ -119,18 +143,20 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
             </li>
             <li>
               <a 
-                onClick={() => handlePageChange("Resources")} 
+                onClick={() => handlePageChange("FAQ")} 
                 className={`cursor-pointer transition-colors duration-200 ${
-                  isActive("Resources") ? "text-gray-900" : "text-gray-600 hover:text-gray-900"
+                  isActive("FAQ") ? "text-gray-900" : "text-gray-600 hover:text-gray-900"
                 }`}
               >
-                Resources
+                FAQs
               </a>
             </li>
           </ul>
           
           <div className="hidden md:block">
-            <button className="px-6 py-2 bg-[#FAFAFB] text-[#004EBE] text-[16px] font-[600] source-sans-3 rounded-md shadow-md hover:bg-blue-700 hover:text-white transition-colors duration-200">
+            <button 
+              onClick={scrollToContact} 
+              className="px-6 py-2 bg-[#FAFAFB] text-[#004EBE] text-[16px] font-[600] source-sans-3 rounded-md shadow-md hover:bg-blue-700 hover:text-white transition-colors duration-200">
               Get Started
             </button>
           </div>
@@ -150,71 +176,77 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
           </div>
         </div>
 
-        {/* Mobile menu */}
-        {isOpen && (
-          <div className="md:hidden h-full w-full fixed top-0 left-0 bg-black/60 backdrop-blur-sm"
-               style={{
-                 backgroundImage: "url('/assets/navbackground.png')",
-                 backgroundSize: 'cover',
-                 backgroundPosition: 'center',
-                 backgroundBlendMode: 'overlay'
-               }}>
-            <div className="px-8 pt-24 pb-8 flex flex-col h-full">
+        
+      {/* Mobile menu */}
+      {isOpen && (
+          <div 
+            className="md:hidden h-full w-full fixed top-0 left-0 bg-black/60 backdrop-blur-sm"
+            style={{
+              backgroundImage: "url('/assets/navbackground.png')",
+              backgroundSize: 'cover',
+              backgroundPosition: 'center',
+              backgroundBlendMode: 'overlay'
+            }}
+            onClick={handleBackdropClick}
+          >
+            <div className="px-8 pt-24 pb-8 flex flex-col h-full" onClick={(e) => e.stopPropagation()}>
               <ul className="space-y-6 text-white text-lg font-medium">
                 <li>
-                  <a onClick={() => {
-                    handlePageChange("Home");
-                    setIsOpen(false);
-                  }} className="block">
+                  <a onClick={() => handlePageChange("Home")} className="block">
                     Home
                   </a>
                 </li>
                 <li>
-                  <a onClick={() => {
-                    handlePageChange("About");
-                    setIsOpen(false);
-                  }} className="block">
+                  <a onClick={() => handlePageChange("About")} className="block">
                     About
                   </a>
                 </li>
+                <li className="relative">
+            <button
+              onClick={() => {
+                setMobileServicesOpen(!mobileServicesOpen);
+              }}
+              className="flex items-center w-full text-left text-white"
+            >
+              <span>Services</span>
+              <ChevronDown
+                className={`ml-2 w-4 h-4 transform transition-transform ${
+                  mobileServicesOpen ? 'rotate-180' : ''
+                }`}
+              />
+            </button>
+            
+            {mobileServicesOpen && (
+              <ul className="mt-2 space-y-2 pl-4">
+                {['Delivery', 'Freight', 'Logistics'].map((service) => (
+                  <li key={service}>
+                    <button
+                      onClick={() => handleMobileServiceClick(service)}
+                      className="block w-full text-left py-2 text-white/80 hover:text-white transition-colors duration-200"
+                    >
+                      {service}
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </li>
                 <li>
-                  <div onClick={(e) => {
-                    e.stopPropagation();
-                    setShowServicesDropdown(!showServicesDropdown)
-                    }} 
-                    className="flex items-center">
-                    Services
-                    <ChevronDown className={`ml-2 w-4 h-4 transform transition-transform ${showServicesDropdown ? 'rotate-180' : ''}`} />
-                  </div>
-                  {showServicesDropdown && (
-                    <ul className="pl-4 mt-4 space-y-4">
-                      {['Delivery', 'Freight', 'Logistics'].map((service) => (
-                        <li key={service}>
-                          <a 
-                          onClick={(e) => handleServiceClick(e, service)}
-                           className="block text-white/80 hover:text-white">
-                            {service}
-                          </a>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
-                </li>
-                <li>
-                  <a onClick={() => {
-                    handlePageChange("Resources");
-                    setIsOpen(false);
-                  }} className="block">
-                    Resources
+                  <a onClick={() => handlePageChange("FAQ")} className="block">
+                    FAQs
                   </a>
                 </li>
               </ul>
-              <div className="mt-auto text-center space-y-6">
-                <div className="space-y-2 text-white/80">
-                  <p>info@k&adispatch.com</p>
-                  <p>+1(23)456-709-78</p>
-                </div>
-                <button className="w-full px-6 py-3 border border-white text-white rounded-full hover:bg-white hover:text-black transition-colors duration-200">
+              <div className="mt-auto flex flex-col items-center text-white space-y-4">
+                <a href="mailto:info@kadispatchbusiness.com" className="text-center">
+                  info@kadispatchbusiness.com
+                </a>
+                <a href="tel:+1 (435) 264 4145" className="text-center">
+                +1 (435) 264 4145
+                </a>
+                <button 
+                  className="px-8 py-2 border border-white rounded-full text-white hover:bg-white hover:text-[#004EBE] transition-colors duration-200"
+                >
                   Request a call
                 </button>
               </div>
@@ -222,7 +254,6 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
           </div>
         )}
       </nav>
-      {/* Only show spacer on desktop */}
       <div className="hidden md:block h-16"></div>
     </div>
   );

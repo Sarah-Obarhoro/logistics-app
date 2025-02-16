@@ -48,6 +48,10 @@ const features = [
 ];
 
 const CallToAction = () => {
+    const scrollToContact = () => {
+        document.getElementById('contact-form')?.scrollIntoView({ behavior: 'smooth' });
+      };
+
   return (
     <section className="relative py-20 mb-40">
       {/* Background Image with Overlay */}
@@ -97,12 +101,12 @@ const CallToAction = () => {
           transition={{ delay: 0.5 }}
           className="mt-12"
         >
-          <a 
-            href="#get-started"
+          <button 
+            onClick={scrollToContact}
             className="inline-block bg-[#FAFAFB] text-[#004EBE] px-8 py-3 rounded-md font-medium hover:bg-blue-700 hover:text-[#FAFAFB] transition-colors source-sans-3 text-[32px] mt-10"
           >
             Get started
-          </a>
+          </button>
         </motion.div>
       </div>
     </section>
