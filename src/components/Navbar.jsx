@@ -8,6 +8,12 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
   const [hasScrolled, setHasScrolled] = useState(false);
   const dropdownRef = useRef(null);
 
+  const serviceDisplayNames = {
+    'Delivery': 'Last-Mile Delivery (B2C)',
+    'Freight': 'Freight Delivery (B2B)',
+    'Logistics': 'Consultancy Services'
+  };
+
   const handleMobileServiceClick = (service) => {
     handlePageChange(service);
     setMobileServicesOpen(false);
@@ -126,7 +132,7 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
                 <ChevronDown className="ml-1 w-4 h-4" />
               </div>
               {showServicesDropdown && (
-                <div className="absolute top-full left-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1">
+                <div className="absolute top-full left-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1">
                   {['Delivery', 'Freight', 'Logistics'].map((service) => (
                     <a
                       key={service}
@@ -137,7 +143,7 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
                           : "text-gray-700 hover:bg-gray-100"
                       }`}
                     >
-                      {service}
+                      {serviceDisplayNames[service]}
                     </a>
                   ))}
                 </div>
@@ -225,7 +231,7 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
                       onClick={() => handleMobileServiceClick(service)}
                       className="block w-full text-left py-2 text-white/80 hover:text-white transition-colors duration-200"
                     >
-                      {service}
+                      {serviceDisplayNames[service]}
                     </button>
                   </li>
                 ))}
@@ -245,11 +251,12 @@ const Navbar = ({ setCurrentPage, currentPage }) => {
                 <a href="tel:+1 (435) 264 4145" className="text-center">
                 +1 (435) 264 4145
                 </a>
-                <button 
+                <a 
+                  href="tel:+14352644145" 
                   className="px-8 py-2 border border-white rounded-full text-white hover:bg-white hover:text-[#004EBE] transition-colors duration-200"
                 >
-                  Request a call
-                </button>
+                  Make a call
+                </a>
               </div>
             </div>
           </div>

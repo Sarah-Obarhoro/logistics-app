@@ -77,9 +77,9 @@ const Footer = ({ setCurrentPage }) => {
                   </a>
                   {showServicesDropdown && (
                     <ul className="mt-2 ml-4 space-y-2">
-                      <li><a onClick={() => handlePageChange("Delivery")} className="hover:text-blue-400 transition-colors cursor-pointer block">Delivery</a></li>
-                      <li><a onClick={() => handlePageChange("Freight")} className="hover:text-blue-400 transition-colors cursor-pointer block">Freight</a></li>
-                      <li><a onClick={() => handlePageChange("Logistics")} className="hover:text-blue-400 transition-colors cursor-pointer block">Logistics</a></li>
+                      <li><a onClick={() => handlePageChange("Delivery")} className="hover:text-blue-400 transition-colors cursor-pointer block">Last-Mile Delivery (B2C)</a></li>
+                      <li><a onClick={() => handlePageChange("Freight")} className="hover:text-blue-400 transition-colors cursor-pointer block">Freight Delivery (B2B)</a></li>
+                      <li><a onClick={() => handlePageChange("Logistics")} className="hover:text-blue-400 transition-colors cursor-pointer block">Consultancy Services</a></li>
                     </ul>
                   )}
                 </div>

@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
 const FAQSection = () => {
+  const scrollToContact = () => {
+    document.getElementById('faq-contact-form')?.scrollIntoView({ behavior: 'smooth' });
+  };  
+
   const [openItem, setOpenItem] = useState(null);
   
   const faqItems = [
@@ -45,7 +49,7 @@ const FAQSection = () => {
           <p className="text-[#000000] text-[18px] sm:text-[20px] lg:text-[22px] font-[400] source-sans-3 mb-6">
             Got questions? We've got answers! Below are some of the most common inquiries about our dispatch and logistics services.
           </p>
-          <button className="bg-[#004EBE] text-white font-semibold text-[16px] sm:text-[18px] lg:text-[20px] source-sans-3 px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 rounded-lg mt-4 sm:mt-6 hover:bg-blue-700 transition-colors">
+          <button onClick={scrollToContact} className="bg-[#004EBE] text-white font-semibold text-[16px] sm:text-[18px] lg:text-[20px] source-sans-3 px-6 sm:px-8 lg:px-10 py-2.5 sm:py-3 rounded-lg mt-4 sm:mt-6 hover:bg-blue-700 transition-colors">
             Contact Support
           </button>
         </div>
