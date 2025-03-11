@@ -1,11 +1,11 @@
-import { Users, Map, Shield } from 'lucide-react';
-import Navbar from '../components/Navbar';
+import { Users, Map } from 'lucide-react';
+// import Navbar from '../components/Navbar';
 import Hero from '../components/DeliveryHero';
 import FeatureCard from '../components/Feature';
 import MoreInfo from '../components/More-info';
 import CTA from '../components/DeliveryCTA';
 import ContactForm from '../components/Contact';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 
 
 const Delivery = ({ setCurrentPage }) => {

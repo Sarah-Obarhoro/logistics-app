@@ -1,12 +1,12 @@
-import { Users, Map, Shield } from 'lucide-react';
-import Navbar from '../components/Navbar';
+// import { Users, Map, Shield } from 'lucide-react';
+// import Navbar from '../components/Navbar';
 import Hero from '../components/Hero';
 import FeatureCard from '../components/LandingPageFeature';
 import ServicesSection from '../components/Services';
 import MoreInfo from '../components/More-info';
 import CallToAction from '../components/CTA';
 import ContactForm from '../components/Contact';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 
 
 const Home = ({ setCurrentPage }) => {

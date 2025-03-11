@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { ChevronDown, ChevronUp } from 'lucide-react';
+// import { ChevronDown, ChevronUp } from 'lucide-react';
 import emailjs from "emailjs-com";
 import { Toaster, toast } from "react-hot-toast";
 
 const FAQSection = () => {
-  const [openItem, setOpenItem] = useState(null);
+  // const [openItem, setOpenItem] = useState(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',

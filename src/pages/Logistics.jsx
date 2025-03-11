@@ -1,10 +1,10 @@
 import { Users, Map, Shield } from 'lucide-react';
-import Navbar from '../components/Navbar';
+// import Navbar from '../components/Navbar';
 import Hero from '../components/LogisticsHero';
 import FeatureCard from '../components/Feature';
 import CTA from '../components/LogisticsCTA';
 import ContactForm from '../components/Contact';
-import Footer from '../components/Footer';
+// import Footer from '../components/Footer';
 
 
 const Logistics = ({ setCurrentPage }) => {
